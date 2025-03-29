@@ -60,10 +60,48 @@ Overflow[10,20(2),30].
 
 Caso 4: Si el archivo se llena, se devuelve un mensaje de error.
 */
-void alta_registro(vector<Area_datos*>& datos, vector<Area_indices*>& indices){
+bool alta_registro(vector<Area_datos*>& datos, vector<Area_indices*>& indices, string nombre, int clave, int n){
+	bool check = false;
+	/*Si es false retornamos esta variable, y con if en el main decimos que se agreago el dato correctamente o que 
+	no se pudo tambien si el dato fue ingresado correctamente y retorna true despues reorganizamos el vector*/ 
+	
+
 	for(const auto& p: Area_indices){
+		//CASO 1
+		if(p->clave == 0){
+			datos[aux->dir]->clave = clave;
+			datos[aux->dir]->dato = nombre;
+			return true;
+			//MENSAJE DE SE GENERO UN NUEVO BLOQUE QSYO
+		}
 		
+		//CASO 2
+		if(p->clave != 0){
+			int contador = 0;
+			//condicion n/2
+			int condicion = n/2;
+			for(int i = p->dir; i < n; i++){
+				if(datos[i]->clave != 0){
+					contador++;
+				}
+			}
+			
+			//caso si la clave a ingresar esta entre los valores de un bloque y ya se cumple la condicion n/2
+			if(condicion == condicion){
+				if(datos[p->dir]<calve && clave<datos[p->dir++]){
+					for(int i = p->dir; i<n; i++){
+						if(datos[i]->clave == 0){
+							datos[i]->clave = clave;
+							datos[i]->dato = palabra;
+							return true;
+						}
+					}
+				}
+			}
+		}
 	}
+	
+	
 }
 
 int main() {
