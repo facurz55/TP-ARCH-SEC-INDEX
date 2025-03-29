@@ -66,11 +66,11 @@ bool alta_registro(vector<Area_datos*>& datos, vector<Area_indices*>& indices, s
 	no se pudo tambien si el dato fue ingresado correctamente y retorna true despues reorganizamos el vector*/ 
 	
 
-	for(const auto& p: Area_indices){
+	for(const auto& p: indices){
 		//CASO 1
 		if(p->clave == 0){
-			datos[aux->dir]->clave = clave;
-			datos[aux->dir]->dato = nombre;
+			datos[p->dir]->clave = clave;
+			datos[p->dir]->dato = nombre;
 			return true;
 			//MENSAJE DE SE GENERO UN NUEVO BLOQUE QSYO
 		}
@@ -87,12 +87,12 @@ bool alta_registro(vector<Area_datos*>& datos, vector<Area_indices*>& indices, s
 			}
 			
 			//caso si la clave a ingresar esta entre los valores de un bloque y ya se cumple la condicion n/2
-			if(condicion == condicion){
-				if(datos[p->dir]<calve && clave<datos[p->dir++]){
+			if(contador == condicion){
+				if(datos[p->dir]->clave<clave && clave<datos[p->dir++]->clave){
 					for(int i = p->dir; i<n; i++){
 						if(datos[i]->clave == 0){
 							datos[i]->clave = clave;
-							datos[i]->dato = palabra;
+							datos[i]->dato = nombre;
 							return true;
 						}
 					}
@@ -101,6 +101,7 @@ bool alta_registro(vector<Area_datos*>& datos, vector<Area_indices*>& indices, s
 		}
 	}
 	
+	return check;
 	
 }
 
