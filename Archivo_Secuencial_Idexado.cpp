@@ -26,6 +26,45 @@ void inicializar_areas(vector<Area_datos*>& datos, vector<Area_indices*>& indice
 		indices[i]->clave = 0;
 	}
 }
+/*
+Caso 1:
+1-consultar si hay un indice que no este ocupado
+2-ingresar a la direccion de ese indices
+3-insertar nuevo registro
+
+Caso 2:
+1-consultar si hay un indice ocupado
+2-ingresar a la direccion de ese indice;
+3-recorrer el bloque (van a haber varios casos en esta situacion):
+	#Caso 1: Si el bloque ya cumple con la condicion del n/2 y el numero de la clave 
+			 esta por encima de la clave del ultimo registro del bloque se debera iniciar un nuevo bloque.
+	#Caso 2: Si el bloque ya cumple con la condicio n/2 pero el numero de la clave del registro a ingresar 
+			 esta en el rango de claves de un bloque debera ser ingresado en ese bloque, solo si hay espacio
+			 de lo contrario sera enviado al overflow.
+
+Caso 3:
+Si el area principal de datos ya esta llena (si los bloques estan llenos) el proximo dato ingresado
+debera ir al overflow, donde si el valor de la clave esta entre los valores de las claves de un bloque 
+el ultimo registro de ese bloque debera llevar la direccion del registro ingresado en el overflow
+ejemplo:
+	bloque 2[3,5,7,8 direccion (0)]
+	bloque 3[10,17,23,45 direccion (1)]
+	overflow[9,50]
+
+En caso de que se ingrese nuevamente otro dato que cumpla con la condicion aterior pero el ultimo registro del bloque ya tenga un direccion 
+al overflow se le debera dar la direccion del dato ingresado al anterior dato ingresado al overflow.
+
+Ejemplo: 
+se ingresa el 30
+Overflow[10,20(2),30].
+
+Caso 4: Si el archivo se llena, se devuelve un mensaje de error.
+*/
+void alta_registro(vector<Area_datos*>& datos, vector<Area_indices*>& indices){
+	for(const auto& p: Area_indices){
+		
+	}
+}
 
 int main() {
 	int n = 4;
