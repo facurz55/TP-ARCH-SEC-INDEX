@@ -88,7 +88,7 @@ bool alta_registro(vector<Area_datos*>& datos, vector<Area_indices*>& indices, s
 			
 			//caso si la clave a ingresar esta entre los valores de un bloque y ya se cumple la condicion n/2
 			if(contador == condicion){
-				if(datos[p->dir]->clave<clave && clave<datos[p->dir++]->clave){
+				if(datos[p->clave]->clave<clave && clave<datos[p->clave++]->clave){
 					for(int i = p->dir; i<n; i++){
 						if(datos[i]->clave == 0){
 							datos[i]->clave = clave;
@@ -99,23 +99,45 @@ bool alta_registro(vector<Area_datos*>& datos, vector<Area_indices*>& indices, s
 				}
 			}
 		}
+
+		//CASO 3
+		if(p->clave < clave) { //miro la clave en el area de indices, la clave q voy a meter tiene que ser mayor
+			for (int i = p->dir; i<n; i++){ //recorro el bloque
+				if(datos[i]->clave == 0) { //puede pasar que el bloque sea todo feo y queden espacios vacios, trato de encontrar ese ultimo registro
+					if(datos[--i]->dir == 0) { // si la dir es cero
+						if(OVER<OMAX){ //debe llegar hasta 19
+							datos[OVER]->clave = clave; //pongo la clave en el overflow
+							datos[OVER]->dato = nombre; //el dato q se ingresa :v
+							datos[--i]->dir = OVER; //le pongo a ese anterior registro la direccion del overflow, el i deberia ser el vacio por lo que bajo una posicion para estar en el ultimo registro
+							OVER++; //aumento la pos del over
+						}
+					} else { //en este caso ya existe una direccion
+						if(OVER<MAX){ //debe llegar hasta 19
+							datos[OVER]->clave = clave; //pongo la clave en el overflow
+							datos[OVER]->dato = nombre; //el dato q se ingresa :v
+							datos[--OVER]->dir = OVER; //le pongo al registro anterior la direccion con el nro del over actual
+							OVER++; //aumento la pos del over
+						}
+					}
+				}
+			}
+		}
 	}
-	
 	return check;
 	
 }
 
 int main() {
 	int n = 4;
-	int PMAX = 12;
-	int OVER = 12;
+	int PMAX = 11; //11 xq arrancamos desde el cero
+	int OVER = PMAX+1; //corregido del pdf, over es igual a pmax+1 por ende arrancaria en 11+1=12 como el ej del pdf
 	int OMAX = 20;
 	int cant_bloques = PMAX / n;
 	
 	vector<Area_datos*> datos(OMAX);
 	vector<Area_indices*> indices(cant_bloques);
 	
-	// Inicializar áreas antes de usarlas
+	// Inicializar ï¿½reas antes de usarlas
 	inicializar_areas(datos, indices, OMAX, cant_bloques);
 	
 	for (const auto& p : datos) {
