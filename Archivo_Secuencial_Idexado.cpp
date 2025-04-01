@@ -22,6 +22,42 @@ void inicializar_areas(Area_datos *datos[], Area_indices *indices[], int OMAX, i
 		indices[i] = new Area_indices{0, 0};
 	}
 }
+
+
+
+string consulta(Area_datos* datos[], Area_indices* indices[], int OMAX, int OVER, int cant_bloques, int clave, int n) {
+	
+	if (indices[0]->clave <= clave) {   // Si la primer clave del índice es mayor que la clave que buscamos no realizamos la busqueda en el area principal
+		
+		for (int i = 0; i < cant_bloques; i++) {  
+			if (indices[i]->clave <= clave) {
+				// Buscamos en el bloque
+				int dir_bloque = indices[i]->dir;
+				for (int j = dir_bloque; j < dir_bloque + n; j++) {
+					if (datos[j]->clave == clave) {
+						return datos[j]->dato;
+					}
+				}
+			}
+		}
+	}
+	// Si no lo encontramos en el área principal, buscamos en el Overflow
+	for (int i = OVER; i < OMAX; i++) {
+		if (datos[i]->clave == clave) {
+			return datos[i]->dato;
+		}
+	}
+	
+	// Si no se encuentra la clave
+	cout<<"Dato no encontrado"<<endl;
+	return "------";
+}
+
+
+
+
+
+
 /*
 Caso 1:
 1-consultar si hay un indice que no este ocupado
