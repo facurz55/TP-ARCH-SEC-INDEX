@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
 struct Area_datos {
@@ -24,6 +25,7 @@ void inicializar_areas(Area_datos *datos[], Area_indices *indices[], int OMAX, i
 }
 
 
+	/// CONSULTA DE DATOS
 
 string consulta(Area_datos* datos[], Area_indices* indices[], int OMAX, int OVER, int cant_bloques, int clave, int n) {
 	
@@ -31,8 +33,7 @@ string consulta(Area_datos* datos[], Area_indices* indices[], int OMAX, int OVER
 		
 		for (int i = 0; i < cant_bloques; i++) {  
 			if (indices[i]->clave <= clave) {
-				// Buscamos en el bloque
-				int dir_bloque = indices[i]->dir;
+				int dir_bloque = indices[i]->dir;    // Buscamos en el bloque
 				for (int j = dir_bloque; j < dir_bloque + n; j++) {
 					if (datos[j]->clave == clave) {
 						return datos[j]->dato;
@@ -47,7 +48,6 @@ string consulta(Area_datos* datos[], Area_indices* indices[], int OMAX, int OVER
 			return datos[i]->dato;
 		}
 	}
-	
 	// Si no se encuentra la clave
 	cout<<"Dato no encontrado"<<endl;
 	return "------";
@@ -162,6 +162,19 @@ bool alta_registro(Area_datos* datos[], Area_indices* indices[], int OMAX, int c
 	return check;
 	
 }
+	
+	
+	/// ORDENAMIENTO
+	/// Ejemplo de uso: ordenar_bloque(datos, indices[i]->dir, n);
+	
+void ordenar_bloque(Area_datos* datos[], int inicio, int n) {
+	sort(datos + inicio, datos + inicio + n, [](Area_datos* a, Area_datos* b) {
+		if (a->clave == 0) return false;  
+		if (b->clave == 0) return true;   
+		return a->clave < b->clave; 
+	});
+}
+	
 	
 	int main() {
 		int n = 4;
