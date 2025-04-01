@@ -163,7 +163,7 @@ bool alta_registro(Area_datos* datos[], Area_indices* indices[], int OMAX, int c
 	
 }
 	
-	
+	/// comentario
 	/// ORDENAMIENTO
 	/// Ejemplo de uso: ordenar_bloque(datos, indices[i]->dir, n);
 	
