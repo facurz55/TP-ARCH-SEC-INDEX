@@ -167,12 +167,13 @@ bool alta_registro(Area_datos* datos[], Area_indices* indices[], int OMAX, int c
 	/// ORDENAMIENTO
 	/// Ejemplo de uso: ordenar_bloque(datos, indices[i]->dir, n);
 	
-	void ordenar_bloque(Area_datos* datos[], int inicio, int n) {
+	void ordenar_bloque(Area_datos* datos[], Area_indices* indices[], int inicio, int n, int ind) {
 		sort(datos + inicio, datos + inicio + n, [](Area_datos* a, Area_datos* b) {
 			if (a->clave == 0) return false;  
 			if (b->clave == 0) return true;   
 			return a->clave < b->clave; 
 		});
+		indices[ind]->clave = datos[inicio]->clave;
 	}
 	
 	
